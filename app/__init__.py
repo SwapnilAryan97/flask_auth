@@ -31,18 +31,6 @@ def page_not_found(e):
     return render_template("404.html"), 404
 
 
-class RequestFormatter(logging.Formatter):
-    def format(self, record):
-        if has_request_context():
-            record.url = request.url
-            record.remote_addr = request.remote_addr
-        else:
-            record.url = None
-            record.remote_addr = None
-
-        return super().format(record)
-
-
 def create_app():
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__)
@@ -54,6 +42,7 @@ def create_app():
     app.register_blueprint(simple_pages)
     app.register_blueprint(auth)
     app.register_blueprint(log_con)
+    app.register_blueprint(user_operations)
     app.context_processor(utility_text_processors)
     app.config['BOOTSTRAP_BOOTSWATCH_THEME'] = 'Simplex'
     app.register_error_handler(404, page_not_found)
@@ -65,8 +54,8 @@ def create_app():
     # add command function to cli commands
     app.cli.add_command(create_database)
     app.cli.add_command(create_log_folder)
-    return app
 
+    return app
 
 
 @login_manager.user_loader
