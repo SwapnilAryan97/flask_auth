@@ -27,6 +27,6 @@ def runner(application):
     return application.test_cli_runner()
 
 
-# @pytest.fixture()
-# def make_log_folder(runner):
-#     runner.invoke(create_log_folder)
+@pytest.fixture()
+def make_log_folder(runner):
+    runner.invoke(create_log_folder)
