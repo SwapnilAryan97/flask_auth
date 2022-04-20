@@ -12,8 +12,6 @@ auth = Blueprint('auth', __name__, template_folder='templates')
 from flask import current_app
 
 
-
-
 @auth.route('/login', methods=['POST', 'GET'])
 def login():
     form = login_form()
@@ -32,6 +30,18 @@ def login():
             flash("Welcome", 'success')
             return redirect(url_for('auth.dashboard'))
     return render_template('login.html', form=form)
+
+
+@auth.route("/logout")
+@login_required
+def logout():
+    """Logout the current user."""
+    user = current_user
+    user.authenticated = False
+    db.session.add(user)
+    db.session.commit()
+    logout_user()
+    return redirect(url_for('auth.login'))
 
 
 @auth.route('/register', methods=['POST', 'GET'])
@@ -61,18 +71,6 @@ def register():
 @login_required
 def dashboard():
     return render_template('dashboard.html')
-
-
-@auth.route("/logout")
-@login_required
-def logout():
-    """Logout the current user."""
-    user = current_user
-    user.authenticated = False
-    db.session.add(user)
-    db.session.commit()
-    logout_user()
-    return redirect(url_for('auth.login'))
 
 
 @auth.route('/users')
@@ -131,19 +129,6 @@ def add_user():
     return render_template('user_new.html', form=form)
 
 
-@auth.route('/users/<int:user_id>/delete', methods=['POST'])
-@login_required
-def delete_user(user_id):
-    user = User.query.get(user_id)
-    if user.id == current_user.id:
-        flash("You can't delete yourself!")
-        return redirect(url_for('auth.browse_users'), 302)
-    db.session.delete(user)
-    db.session.commit()
-    flash('User Deleted', 'success')
-    return redirect(url_for('auth.browse_users'), 302)
-
-
 @auth.route('/profile', methods=['POST', 'GET'])
 def edit_profile():
     user = User.query.get(current_user.get_id())
@@ -171,3 +156,14 @@ def edit_account():
     return render_template('manage_account.html', form=form)
 
 
+@auth.route('/users/<int:user_id>/delete', methods=['POST'])
+@login_required
+def delete_user(user_id):
+    user = User.query.get(user_id)
+    if user.id == current_user.id:
+        flash("You can't delete yourself!")
+        return redirect(url_for('auth.browse_users'), 302)
+    db.session.delete(user)
+    db.session.commit()
+    flash('User Deleted', 'success')
+    return redirect(url_for('auth.browse_users'), 302)
