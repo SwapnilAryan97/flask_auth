@@ -45,7 +45,7 @@ class DebugFormatter(logging.Formatter):
 
 
 app = Flask(__name__)
-debug_hand = debuglog()
+# debug_hand = debuglog()
 
 @auth.route('/login', methods=['POST', 'GET'])
 def login():
