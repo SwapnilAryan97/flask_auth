@@ -68,17 +68,18 @@ LOGGING_CONFIG = {
             'class': 'logging.StreamHandler',
             'stream': 'ext://sys.stdout',  # Default is stderr
         },
-        'file.handler.myapp': {
+        'file.handler.myApp': {
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'RequestFormatter',
-            'filename': 'app/logs/myinfo.log',
+            # 'filename': 'app/logs/myinfo.log',
+            'filename': os.path.join(config.Config.LOG_DIR, 'myApp.log'),
             'maxBytes': 10000000,
             'backupCount': 5,
         },
-        'file.handler.mydebug': {
+        'file.handler.myDebug': {
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'DebugFormatter',
-            'filename': 'app/logs/mydebug.log',
+            'filename': os.path.join(config.Config.LOG_DIR, 'myDebug.log'),
             'maxBytes': 10000000,
             'backupCount': 5,
         },
@@ -95,15 +96,15 @@ LOGGING_CONFIG = {
             'propagate': True
         },
         'myApp': {  # if __name__ == '__main__'
-            'handlers': ['file.handler.myapp'],
+            'handlers': ['file.handler.myApp'],
             'level': 'INFO',
             'propagate': False
         },
         'myDebug': {  # if __name__ == '__main__'
-            'handlers': ['file.handler.mydebug'],
+            'handlers': ['file.handler.myDebug'],
             'level': 'DEBUG',
             'propagate': False
-        },
+        }
 
     }
 }

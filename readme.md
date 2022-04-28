@@ -1,9 +1,9 @@
 # Project Setup
 
-[![Production Workflow 1](https://github.com/SwapnilAryan97/flask_auth/actions/workflows/prod.yml/badge.svg)](https://github.com/SwapnilAryan97/flask_auth/actions/workflows/prod.yml)
+[![Production Workflow](https://github.com/SwapnilAryan97/flask_auth/actions/workflows/prod.yml/badge.svg)](https://github.com/SwapnilAryan97/flask_auth/actions/workflows/prod.yml)
 * [Production Deployment](https://dashboard.heroku.com/apps/final-proj-prod)
 
-[![Development Workflow 3.8](https://github.com/SwapnilAryan97/flask_auth/actions/workflows/dev.yml/badge.svg)](https://github.com/SwapnilAryan97/flask_auth/actions/workflows/dev.yml)
+[![Development Workflow](https://github.com/SwapnilAryan97/flask_auth/actions/workflows/dev.yml/badge.svg)](https://github.com/SwapnilAryan97/flask_auth/actions/workflows/dev.yml)
 * [Developmental Deployment](https://final-proj-dev.herokuapp.com)
 
 
